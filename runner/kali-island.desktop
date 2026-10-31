@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Kali Island
+GenericName=Dynamic Island Desktop Overlay
+Comment=Intelligent Dynamic Island desktop interface for Kali Linux
+Exec=bash "/home/sireebos/Documents/island/runner/start-island.sh"
+Icon=preferences-desktop
+Terminal=false
+Categories=Utility;
+StartupNotify=false
+X-GNOME-Autostart-enabled=true
+X-XFCE-Autostart-enabled=true

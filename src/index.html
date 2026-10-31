@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kali Island</title>
+  <link rel="stylesheet" href="./styles/tokens.css">
+  <link rel="stylesheet" href="./styles/themes.css">
+  <link rel="stylesheet" href="./styles/base.css">
+  <link rel="stylesheet" href="./styles/island.css">
+  <link rel="stylesheet" href="./styles/components.css">
+</head>
+<body>
+  <div id="island-viewport" class="island-viewport">
+    <!-- Center Capsule -->
+    <div id="island-capsule" class="island-capsule" role="region" aria-label="Kali Dynamic Island">
+      
+      <!-- IDLE VIEW (Pill) -->
+      <div class="island-idle-view">
+        <div class="idle-left">
+          <div class="drag-handle" title="Drag to reposition Island">⋮⋮</div>
+          <div class="idle-logo-wrapper">
+            <img src="./assets/kali-logo.svg" alt="Kali Logo" class="idle-logo">
+          </div>
+          <div class="status-indicator-dot" title="System Normal"></div>
+          <span class="idle-title">Kali</span>
+        </div>
+
+        <div class="idle-center">
+          <div class="idle-mini-wave" title="System Activity">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+          </div>
+        </div>
+
+        <div class="idle-right">
+          <button id="idle-mic-btn" class="control-btn mic-btn" style="width: 22px; height: 22px; border-radius: 50%; font-size: 0.72rem; padding: 0;" title="Voice Assistant (M)">🎙️</button>
+          <span id="idle-clock" class="idle-clock">--:--</span>
+          <span id="idle-ip-tag" class="idle-tag">...</span>
+        </div>
+      </div>
+
+      <!-- EXPANDED VIEW (Floating Panel) -->
+      <div class="island-expanded-view">
+        <!-- Header -->
+        <header class="expanded-header">
+          <div class="header-identity">
+            <div class="drag-handle" title="Drag to reposition Island">⋮⋮</div>
+            <img src="./assets/kali-logo.svg" alt="Kali Logo" class="header-logo">
+            <div class="header-titles">
+              <div class="header-app-name">
+                Kali Island
+                <span class="badge-version">v0.1.0</span>
+              </div>
+              <div class="header-subtitle">Kali Linux XFCE • 4K HiDPI Desktop Overlay</div>
+            </div>
+          </div>
+
+          <div class="header-controls">
+            <button id="header-mic-btn" class="control-btn mic-btn" title="Voice Assistant (M)">🎙️</button>
+            <button id="header-settings-btn" class="control-btn" title="Island Settings (5)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+            </button>
+            <button id="theme-toggle-btn" class="control-btn" title="Cycle Theme (T)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+              </svg>
+            </button>
+            <button id="close-island-btn" class="control-btn close" title="Collapse Island (Esc)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="18 15 12 9 6 15"></polyline>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs-nav" aria-label="Island Tabs">
+          <button class="tab-btn active" data-tab="overview">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            Overview
+          </button>
+          <button class="tab-btn" data-tab="gpu">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            RTX 3060 & AI
+          </button>
+          <button class="tab-btn" data-tab="actions">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            Quick Actions
+          </button>
+          <button class="tab-btn" data-tab="media">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+            Media
+          </button>
+          <button class="tab-btn" data-tab="settings">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            Settings
+          </button>
+        </nav>
+
+        <!-- Body -->
+        <main class="expanded-body">
+          <!-- Voice Assistant Interactive Card -->
+          <div id="voice-assistant-card" class="voice-assistant-card" style="display: none;">
+            <div class="voice-card-header">
+              <div class="voice-title-box">
+                <span class="voice-icon-pulsing">🎙️</span>
+                <div>
+                  <div id="voice-status-label" class="voice-status-label">Voice Assistant Ready</div>
+                  <div class="voice-subtext">Uses trained voice model • Say "terminal", "GPU status", etc.</div>
+                </div>
+              </div>
+              <div id="voice-wave-anim" class="voice-wave-bars" style="display: none;">
+                <div class="vbar"></div><div class="vbar"></div><div class="vbar"></div><div class="vbar"></div><div class="vbar"></div>
+              </div>
+              <button id="close-voice-card-btn" class="action-delete-btn" style="display: flex; position: static;" title="Close Voice Card">×</button>
+            </div>
+
+            <div class="voice-conversation-box">
+              <div class="voice-bubble user">
+                <span class="bubble-tag">YOU</span>
+                <span id="voice-transcript-text">Press mic or hold to speak a command...</span>
+              </div>
+              <div class="voice-bubble assistant">
+                <span class="bubble-tag">KALI ISLAND</span>
+                <span id="voice-response-text">Ready. Ask a question or command your Kali system.</span>
+              </div>
+            </div>
+
+            <div class="voice-chips-row">
+              <button class="voice-chip" data-cmd="open terminal">⚡ Open Terminal</button>
+              <button class="voice-chip" data-cmd="gpu status">📊 GPU Status</button>
+              <button class="voice-chip" data-cmd="cpu status">💻 CPU Status</button>
+              <button class="voice-chip" data-cmd="open files">📁 Open Files</button>
+              <button class="voice-chip" data-cmd="switch to oled">🎨 Theme OLED</button>
+            </div>
+          </div>
+
+          <!-- Overview Tab -->
+          <div id="panel-overview" class="tab-panel telemetry-grid" style="display: grid;">
+            <div class="telemetry-card">
+              <div class="card-top">
+                <span class="card-label">CPU Utilization</span>
+                <span id="stat-cpu-val" class="card-value">18%</span>
+              </div>
+              <div class="card-bar-bg">
+                <div id="stat-cpu-bar" class="card-bar-fill" style="width: 18%;"></div>
+              </div>
+              <div class="card-meta">
+                <span>8 Cores / 16 Threads</span>
+                <span>Active</span>
+              </div>
+            </div>
+
+            <div class="telemetry-card">
+              <div class="card-top">
+                <span class="card-label">Memory Usage</span>
+                <span id="stat-ram-val" class="card-value">42%</span>
+              </div>
+              <div class="card-bar-bg">
+                <div id="stat-ram-bar" class="card-bar-fill" style="width: 42%;"></div>
+              </div>
+              <div class="card-meta">
+                <span>6.7 GB / 16.0 GB</span>
+                <span>ZRAM active</span>
+              </div>
+            </div>
+
+            <div class="telemetry-card">
+              <div class="card-top">
+                <span class="card-label">NVIDIA RTX 3060</span>
+                <span id="stat-gpu-val" class="card-value">6%</span>
+              </div>
+              <div class="card-bar-bg">
+                <div id="stat-gpu-bar" class="card-bar-fill gpu" style="width: 6%;"></div>
+              </div>
+              <div class="card-meta">
+                <span>Driver 550.163</span>
+                <span id="stat-gpu-temp">44°C</span>
+              </div>
+            </div>
+
+            <div class="telemetry-card">
+              <div class="card-top">
+                <span class="card-label">System Storage</span>
+                <span class="card-value">34%</span>
+              </div>
+              <div class="card-bar-bg">
+                <div class="card-bar-fill" style="width: 34%;"></div>
+              </div>
+              <div class="card-meta">
+                <span>NVMe Primary</span>
+                <span>Healthy</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- GPU / AI Tab -->
+          <div id="panel-gpu" class="tab-panel telemetry-grid" style="display: none;">
+            <div class="telemetry-card">
+              <div class="card-top">
+                <span class="card-label">VRAM Consumption</span>
+                <span id="stat-vram-val" class="card-value">1.8 GB</span>
+              </div>
+              <div class="card-bar-bg">
+                <div class="card-bar-fill gpu" style="width: 15%;"></div>
+              </div>
+              <div class="card-meta">
+                <span>12.0 GB GDDR6 Total</span>
+                <span>Available: 10.2 GB</span>
+              </div>
+            </div>
+
+            <div class="telemetry-card">
+              <div class="card-top">
+                <span class="card-label">Local Ollama AI</span>
+                <span class="card-value" style="color: var(--status-success);">Online</span>
+              </div>
+              <div class="card-bar-bg">
+                <div class="card-bar-fill" style="width: 100%;"></div>
+              </div>
+              <div class="card-meta">
+                <span>Ready for Qwen models</span>
+                <span>Port 11434</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions Tab (Dynamic + Add More) -->
+          <div id="panel-actions" class="tab-panel actions-container" style="display: none;">
+            <div class="actions-header-bar">
+              <span class="settings-group-title">Launch Applications</span>
+              <button id="add-action-btn" class="btn-primary" style="padding: 4px 10px; font-size: 0.74rem;">
+                + Add Action
+              </button>
+            </div>
+            <div id="quick-actions-grid" class="actions-grid">
+              <!-- Rendered Dynamically -->
+            </div>
+          </div>
+
+          <!-- Media Tab (Dynamic + Add More) -->
+          <div id="panel-media" class="tab-panel actions-container" style="display: none;">
+            <div class="media-card" style="width: 100%;">
+              <div class="media-art">♪</div>
+              <div class="media-info">
+                <div class="media-title">Cyber City Soundscape</div>
+                <div class="media-artist">MPRIS Ready • Audio Session Active</div>
+              </div>
+              <div class="media-controls">
+                <button class="media-btn" title="Previous">⏮</button>
+                <button class="media-btn" title="Play / Pause">▶</button>
+                <button class="media-btn" title="Next">⏭</button>
+              </div>
+            </div>
+
+            <div class="actions-header-bar" style="margin-top: 6px;">
+              <span class="settings-group-title">Media Launchers</span>
+              <button id="add-media-btn" class="btn-primary" style="padding: 4px 10px; font-size: 0.74rem;">
+                + Add Media
+              </button>
+            </div>
+            <div id="media-launchers-grid" class="actions-grid">
+              <!-- Rendered Dynamically -->
+            </div>
+          </div>
+
+          <!-- Settings Tab (Sizing, Dragging, Blur, Behaviors) -->
+          <div id="panel-settings" class="tab-panel settings-container" style="display: none;">
+            <!-- Sizing & Scale -->
+            <div class="settings-group">
+              <span class="settings-group-title">Scale & Sizing</span>
+              
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-name">Master Island Scale</span>
+                  <span class="setting-desc">Resize all pill and panel dimensions</span>
+                </div>
+                <div class="slider-wrapper">
+                  <input id="setting-scale-slider" class="slider-control" type="range" min="80" max="150" step="5" value="100">
+                  <span id="setting-scale-val" class="slider-val">100%</span>
+                </div>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-name">Text Size</span>
+                  <span class="setting-desc">Scale all text up or down independently</span>
+                </div>
+                <div class="slider-wrapper">
+                  <input id="setting-font-slider" class="slider-control" type="range" min="75" max="150" step="5" value="100">
+                  <span id="setting-font-val" class="slider-val">100%</span>
+                </div>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-name">Reset Dimensions</span>
+                  <span class="setting-desc">Restore standard 4K size defaults</span>
+                </div>
+                <button id="reset-size-btn" class="btn-secondary" style="padding: 4px 12px; font-size: 0.75rem;">
+                  Reset Size
+                </button>
+              </div>
+            </div>
+
+            <!-- Position & Anchors -->
+            <div class="settings-group">
+              <span class="settings-group-title">Position & Dragging</span>
+              
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-name">Screen Anchor Presets</span>
+                  <span class="setting-desc">Snap to screen edge or drag freely with ⋮⋮</span>
+                </div>
+                <div class="anchor-btn-group">
+                  <button class="anchor-btn active" data-anchor="top-center">Top Center</button>
+                  <button class="anchor-btn" data-anchor="top-left">Top Left</button>
+                  <button class="anchor-btn" data-anchor="top-right">Top Right</button>
+                  <button class="anchor-btn" data-anchor="bottom-center">Bottom</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Aesthetics -->
+            <div class="settings-group">
+              <span class="settings-group-title">Glass Aesthetics</span>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-name">Backdrop Blur Strength</span>
+                  <span class="setting-desc">Adjust glass blur density</span>
+                </div>
+                <div class="slider-wrapper">
+                  <input id="setting-blur-slider" class="slider-control" type="range" min="10" max="45" step="1" value="28">
+                  <span id="setting-blur-val" class="slider-val">28px</span>
+                </div>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-name">Active Theme</span>
+                  <span class="setting-desc">Curated Kali desktop palettes</span>
+                </div>
+                <div class="anchor-btn-group">
+                  <button class="anchor-btn" data-theme-set="dark">Dark</button>
+                  <button class="anchor-btn" data-theme-set="oled">OLED</button>
+                  <button class="anchor-btn" data-theme-set="cyber">Cyber</button>
+                  <button class="anchor-btn" data-theme-set="light">☀️ Light</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Behavior -->
+            <div class="settings-group">
+              <span class="settings-group-title">Interaction & Behaviors</span>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-name">Collapse on Click Outside / Blur</span>
+                  <span class="setting-desc">Return to pill when clicking anywhere on the desktop</span>
+                </div>
+                <label class="toggle-switch">
+                  <input id="toggle-blur-collapse" type="checkbox" checked>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- System & Startup -->
+            <div class="settings-group">
+              <span class="settings-group-title">System & Startup</span>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-name">Start on System Boot</span>
+                  <span class="setting-desc">Automatically launch Kali Island whenever you turn on your PC</span>
+                </div>
+                <label class="toggle-switch">
+                  <input id="toggle-autostart" type="checkbox" checked>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Trained Voice & Speech Settings -->
+            <div class="settings-group">
+              <span class="settings-group-title">Trained Voice & Speech</span>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-name">Trained Voice Server URL</span>
+                  <span class="setting-desc">Local TTS endpoint (Kokoro / edge-tts / voice server)</span>
+                </div>
+                <div style="width: 250px; max-width: 100%;">
+                  <input id="setting-voice-url" class="modal-input" style="padding: 4px 8px; font-size: 0.74rem;" value="http://localhost:8880/v1/audio/speech">
+                </div>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-name">Voice Model / Speaker</span>
+                  <span class="setting-desc">Voice ID (e.g. nova, sali, or custom model)</span>
+                </div>
+                <div style="display: flex; gap: 6px; width: 200px; max-width: 100%;">
+                  <input id="setting-voice-name" class="modal-input" style="padding: 4px 8px; font-size: 0.74rem; flex: 1;" value="nova">
+                  <button id="test-voice-btn" class="btn-primary" style="padding: 4px 10px; font-size: 0.72rem; white-space: nowrap;">🔊 Test</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="expanded-footer">
+          <div>
+            <kbd class="kbd-badge">Super+I</kbd> Toggle
+            <span style="opacity: 0.4; margin: 0 4px;">•</span>
+            <kbd class="kbd-badge">Esc</kbd> Collapse
+            <span style="opacity: 0.4; margin: 0 4px;">•</span>
+            <kbd class="kbd-badge">1-5</kbd> Tabs
+            <span style="opacity: 0.4; margin: 0 4px;">•</span>
+            <kbd class="kbd-badge">T</kbd> Theme
+          </div>
+          <div id="drag-helper-hint">Drag <kbd class="kbd-badge">⋮⋮</kbd> to move</div>
+        </footer>
+
+        <!-- Add Item Modal Dialog -->
+        <div id="item-modal" class="item-modal" style="display: none;">
+          <div class="modal-box">
+            <h3 id="modal-title" class="modal-title">Add Quick Action</h3>
+            <div class="modal-field">
+              <label class="modal-label">Name</label>
+              <input id="modal-input-name" class="modal-input" placeholder="e.g. Wireshark, VS Code, Htop" required>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label">Emoji / Icon</label>
+              <input id="modal-input-icon" class="modal-input" placeholder="e.g. 🦈, 💻, ⚡, 🛡️, 🌐" value="⚡">
+            </div>
+            <div class="modal-field">
+              <label class="modal-label">Shell Command / App Binary</label>
+              <input id="modal-input-cmd" class="modal-input" placeholder="e.g. wireshark, x-terminal-emulator -e htop" required>
+            </div>
+            <div class="modal-actions">
+              <button id="modal-cancel-btn" class="btn-secondary">Cancel</button>
+              <button id="modal-save-btn" class="btn-primary">Save Action</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

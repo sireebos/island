@@ -1,0 +1,179 @@
+/* Kali Island Core Morphing Capsule & Glass Styling */
+
+.island-capsule {
+  pointer-events: auto; /* Active hit area */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  
+  width: var(--island-idle-w);
+  height: var(--island-idle-h);
+  border-radius: var(--island-radius-idle);
+  
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  border: var(--glass-border);
+  box-shadow: var(--shadow-idle), var(--glass-inner-bevel);
+  
+  cursor: pointer;
+  overflow: hidden;
+  
+  /* GPU acceleration & smooth spring transitions */
+  will-change: width, height, border-radius, transform, box-shadow;
+  transition: 
+    width var(--spring-duration) var(--spring-easing),
+    height var(--spring-duration) var(--spring-easing),
+    border-radius var(--spring-duration) var(--spring-easing),
+    background 300ms ease,
+    border-color 300ms ease,
+    box-shadow var(--spring-duration) var(--spring-easing),
+    transform var(--spring-duration) var(--spring-easing);
+  
+  transform-origin: top center;
+}
+
+/* Subtle Specular Highlight Rim */
+.island-capsule::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.28) 25%, 
+    rgba(0, 210, 255, 0.45) 50%, 
+    rgba(255, 255, 255, 0.28) 75%, 
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 300ms ease;
+}
+
+/* Subtle Glass Surface Glow */
+.island-capsule::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.08) 0%, transparent 65%);
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 300ms ease;
+}
+
+/* Hover State */
+.island-capsule:not(.expanded):hover {
+  width: var(--island-hover-w);
+  height: var(--island-hover-h);
+  background: var(--glass-bg-hover);
+  border: var(--glass-border-hover);
+  box-shadow: var(--shadow-hover), var(--glass-inner-bevel);
+  transform: translateY(1px);
+}
+
+.island-capsule:not(.expanded):hover::before {
+  left: 4%;
+  right: 4%;
+  opacity: 0.9;
+}
+
+.island-capsule:not(.expanded):hover::after {
+  opacity: 1;
+}
+
+/* Active / Expanded State */
+.island-capsule.expanded {
+  width: var(--island-expanded-w);
+  height: var(--island-expanded-h);
+  border-radius: var(--island-radius-expanded);
+  background: var(--glass-bg-expanded);
+  border: var(--glass-border);
+  box-shadow: var(--shadow-expanded), var(--glass-inner-bevel);
+  cursor: default;
+}
+
+.island-capsule.expanded::before {
+  left: 6%;
+  right: 6%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.35) 30%, 
+    rgba(0, 210, 255, 0.6) 50%, 
+    rgba(255, 255, 255, 0.35) 70%, 
+    transparent 100%
+  );
+}
+
+/* Minimized / Fullscreen Detection State */
+.island-capsule.minimized {
+  transform: translateY(-56px) scale(0.85);
+  opacity: 0;
+  pointer-events: none;
+  transition: 
+    transform 450ms var(--spring-collapse),
+    opacity 350ms ease;
+}
+
+/* Subtle Spring Pulse animation on click trigger */
+@keyframes springPulse {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.97); }
+  65% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.island-capsule.pulse {
+  animation: springPulse 320ms var(--spring-bounce);
+}
+
+/* Content Containers Inside Island */
+.island-idle-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--island-idle-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  z-index: 5;
+  transition: 
+    opacity var(--fade-duration) ease,
+    transform var(--fade-duration) ease;
+}
+
+.island-capsule.expanded .island-idle-view {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.95);
+  pointer-events: none;
+}
+
+.island-expanded-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  pointer-events: none;
+  z-index: 6;
+  transition: 
+    opacity 280ms ease 100ms,
+    transform 320ms var(--spring-easing) 80ms;
+}
+
+.island-capsule.expanded .island-expanded-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}

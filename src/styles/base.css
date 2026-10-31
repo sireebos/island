@@ -1,0 +1,109 @@
+/* Kali Island Base & Reset Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+  overflow-y: hidden;
+  background: transparent !important;
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: calc(14px * var(--user-font-scale, 1.0));
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enforce clean viewport constraints while allowing horizontal action strips */
+.island-viewport,
+.island-capsule,
+.island-expanded-view,
+.expanded-body,
+.settings-container {
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+}
+
+.actions-container,
+.tab-panel {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+}
+
+/* HiDPI 4K Display (3840x2160) scale adjustments */
+@media (min-width: 3000px) {
+  :root {
+    --island-idle-w: calc(330px * var(--user-scale, 1));
+    --island-idle-h: calc(46px * var(--user-scale, 1));
+    --island-hover-w: calc(370px * var(--user-scale, 1));
+    --island-hover-h: calc(52px * var(--user-scale, 1));
+    --island-expanded-w: calc(720px * var(--user-scale, 1));
+    --island-expanded-h: calc(450px * var(--user-scale, 1));
+    --island-radius-expanded: 32px;
+  }
+  
+  html, body {
+    font-size: calc(18px * var(--user-font-scale, 1.0));
+  }
+}
+
+/* Custom Glass Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(128, 128, 128, 0.12);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.28);
+  border-radius: 9999px;
+  border: 1px solid rgba(128, 128, 128, 0.10);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--kali-cyan);
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.35);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --spring-duration: 0.01ms !important;
+    --fade-duration: 0.01ms !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Overlay Container */
+.island-viewport {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 12px;
+  pointer-events: none; /* Let clicks pass through outside the island */
+}
